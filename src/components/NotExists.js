@@ -1,18 +1,19 @@
 import Alert from 'react-bootstrap/Alert';
 
-function Welcome() {
+function NotExists() {
   return (
     <>
       {[
-        'success',
         
+        'danger',
+   
       ].map((variant) => (
         <Alert key={variant} variant={variant} style={{ width: "100vw" }}>
-          Hey, Welcome to Our Shop MYStore
+          This product does not exists
         </Alert>
       ))}
     </>
   );
 }
 
-export default Welcome;
+export default NotExists;

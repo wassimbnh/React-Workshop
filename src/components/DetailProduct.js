@@ -4,16 +4,14 @@ import '../App.css';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import Product from './Product';
+import NotExists from './NotExists';
 
 function DetailProduct() {
 
  
     const [oneProduct, setOneProduct] = useState({})
-
+             
  
-
- 
-
     const { id }= useParams();
 
         useEffect(()=>{
@@ -33,8 +31,7 @@ function DetailProduct() {
   return (
     <div className="App">
       
-     
-      {
+      {!oneProduct?
   Object.keys(oneProduct).length !== 0 && (
     <Product
       key={oneProduct.id}
@@ -45,7 +42,9 @@ function DetailProduct() {
       like={oneProduct.like}
     />
   )
-}
+ : <NotExists />}
+
+
       
      
 

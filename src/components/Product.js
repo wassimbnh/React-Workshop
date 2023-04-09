@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {  useState } from 'react';
 import '../App.css';
 import BuyMessage from './BuyMessage';
-
+                                         
 
 function Product(props) {
 
