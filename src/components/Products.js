@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Product from './Product'
 import axios from 'axios'
 
+
+
 const Products = () => {
     const [prod, setProd] = useState([])
+    
 
     useEffect(()=>{
        axios.get('http://localhost:3001/products').then(
@@ -12,6 +15,8 @@ const Products = () => {
             }
         )
     },[])
+
+  
    
 
   return (
@@ -19,6 +24,7 @@ const Products = () => {
       {
         prod.map(({id,name,price,description,img,like}) =>
             <Product key={id} 
+                id={id}
                 name={name}
                 price={price}
                 description={description}

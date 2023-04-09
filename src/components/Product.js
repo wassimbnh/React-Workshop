@@ -3,12 +3,21 @@ import Card from 'react-bootstrap/Card';
 import {  useState } from 'react';
 import '../App.css';
 import BuyMessage from './BuyMessage';
+import { useNavigate } from 'react-router';
+import DeleteProduct from './DeleteProduct';
+import { deleteProduct } from '../service/api';
+import {  useParams } from 'react-router';
+
                                          
 
 function Product(props) {
 
     const [showMessage, setShowMessage] = useState(false);
     const [like, setLike] = useState(0)
+    const [deleteProd,setDeleteProd] = useState(false)
+    const navigate = useNavigate()
+    const param = useParams()
+
 
     const handleClick = () => {
         setShowMessage(true);
@@ -21,12 +30,32 @@ function Product(props) {
     function handleLike () {
         setLike(like+1)
     }
+    
+    const handleUpdate = ()=>{
+      navigate(`update-product/${props.id}`)
+    }
+        
+    
 
+    const deleteP = async () =>{
+      const res = await deleteProduct(props.id)
+
+      if(res.status === 200){
+        setDeleteProd(true)
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+      
+      
+      
+  }
 
 
   return (
     <div className="App">
-      <Card className={like<=5?"card" : "card2"}>
+      {deleteProd ? <DeleteProduct /> :
+       <Card className={like<=5?"card" : "card2"}>
         <Card.Img variant="top" src={require(`../assets/images/${props.img}`)} />
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
@@ -43,8 +72,13 @@ function Product(props) {
           <Button variant="primary" onClick={handleClick}>Buy</Button>
           <Button variant="info" onClick={handleLike}>Like</Button>
         </div>
+        <div className='button-container' style={{paddingTop:"4px"}}>
+        <Button variant="success" onClick={handleUpdate}>Update</Button>
+        <Button variant="danger" onClick={deleteP}>Delete</Button>
+        </div>
+
         </Card.Body>
-      </Card>
+      </Card> }
 
       {
         showMessage && <BuyMessage />
